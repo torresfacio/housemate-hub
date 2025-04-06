@@ -53,6 +53,36 @@
       margin-bottom: 2rem; /* Adds space at the bottom */
     }
 
+    /* Add these to the existing CSS */
+@media (max-width: 768px) {
+  table {
+    font-size: 1rem;
+    width: 100%;
+    max-width: 100%;
+    table-layout: fixed;
+    display: block;
+    overflow-x: hidden; /* Ensures the table doesn't scroll horizontally */
+    -webkit-overflow-scrolling: touch;
+  }
+
+  th, td {
+    padding: 10px;  /* Reduced padding for small screens */
+    font-size: 1rem; /* Smaller font size for better fit */
+  }
+}
+
+@media (max-width: 480px) {
+  table {
+    font-size: 0.9rem;
+  }
+
+  th, td {
+    padding: 8px; /* Further reduce padding on extra small screens */
+    font-size: 0.9rem;
+  }
+}
+
+
     h1 {
       font-family: 'Poppins', sans-serif;
       text-align: center;
