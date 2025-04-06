@@ -166,7 +166,7 @@
       color: var(--primary);
     }
 
-    /* Added horizontal scroll for small screens */
+    /* Scrollable Table on Small Screens */
     @media (max-width: 768px) {
       .container {
         padding: 1.5rem;
@@ -182,13 +182,10 @@
 
       table {
         font-size: 1rem;
-        overflow-x: auto; /* Allow table to scroll horizontally */
+        min-width: 100%;
         display: block;
-        white-space: nowrap; /* Prevent table contents from wrapping */
-      }
-
-      th, td {
-        padding: 12px 8px; /* Adjust padding for small screens */
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
       }
 
       .schedule-card {
@@ -216,17 +213,6 @@
 
       .button {
         padding: 10px 20px;
-      }
-
-      table {
-        font-size: 0.9rem;
-        overflow-x: auto; /* Enable horizontal scroll */
-        display: block;
-        white-space: nowrap; /* Prevent table contents from wrapping */
-      }
-
-      th, td {
-        padding: 10px 5px; /* Adjust padding further for tiny screens */
       }
     }
 
@@ -270,7 +256,7 @@
         <thead>
           <tr>
             <th>Date (Sunday)</th>
-            <th>Responsible Housemate</th>
+            <th>Housemate</th>
           </tr>
         </thead>
         <tbody></tbody>
@@ -296,4 +282,28 @@
         if (date.getDay() === 0) {
           sundays.push(new Date(date));
         }
-        date.setDate(date.getDate() +
+        date.setDate(date.getDate() + 1);
+      }
+      return sundays;
+    }
+
+    function populateTrashSchedule() {
+      const sundays = getSundaysOfCurrentMonth();
+      const tbody = document.querySelector("#trashSchedule tbody");
+      tbody.innerHTML = "";
+      sundays.forEach((sunday, index) => {
+        const row = document.createElement("tr");
+        const dateCell = document.createElement("td");
+        dateCell.textContent = sunday.toDateString();
+        const housemateCell = document.createElement("td");
+        housemateCell.textContent = housemates[index % housemates.length];
+        row.appendChild(dateCell);
+        row.appendChild(housemateCell);
+        tbody.appendChild(row);
+      });
+    }
+
+    populateTrashSchedule();
+  </script>
+</body>
+</html>
